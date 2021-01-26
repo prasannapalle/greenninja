@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script>
+        var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope,$http) {
+   $scope.submit= function(){
+       console.log("inside");
+      var data = $.param({
+        book: JSON.stringify({
+            author: $scope.author,
+            title : $scope.title,
+            body : $scope.body
+        })
+      });
+      console.log($scope.author);
+      var data1 = {"name":$scope.author}
+
+
+      $http.post("http://52.53.156.138:8080/api", data1).success(function(data, status) {
+        console.log('Data posted successfully');
+        console.log(data.status);
+        console.log(data);
+      })
+  }});
+
+    </script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+//    <script src="C:/Users/laxmi/OneDrive/Desktop/New folder/greenninja/backend/app.js"></script>
+
+</head>
+<body ng-app="myApp">    
+  <div ng-controller="myCtrl">
+    <form>
+      Author:
+      <input type="text" ng-model="author">
+      <br>
+      <br> Title:
+      <input type="text" ng-model="title">
+      <br>
+      <br> Body:
+      <input type="author" ng-model="body">
+      <br>
+      <br>
+      <input type="submit" value="Submit" ng-click="submit()">
+    </form>
+  </div>
+</body>
